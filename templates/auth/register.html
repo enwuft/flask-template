@@ -1,67 +1,234 @@
-{% extends 'base.html' %}
-
-{% block title %}
-Register
-{% endblock title %}
-
-{% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div class="alert alert-danger">
-                {{ messages[0] }}
-            </div>
-            {% endif %}
-            {% endwith %}
-            <form method="POST" class="bg-light p-4 border rounded">
-                {{ form.hidden_tag() }}
-                <div class="form-group">
-                    {{ form.name.label(class="form-control-label") }}
-                    {{ form.name(class="form-control" + (' is-invalid' if form.name.errors else '') ) }}
-                    {% for error in form.name.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {{ form.email(class="form-control" + (' is-invalid' if form.email.errors else '') ) }}
-                    {% if form.email.errors %}
-                    <div class="invalid-feedback">
-                        {{ form.email.errors[0] }}
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {{ form.password(class="form-control" + (' is-invalid' if form.password.errors else '') ) }}
-                    {% if form.password.errors %}
-                    <div class="invalid-feedback">
-                        {{ form.password.errors[0] }}
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.confirm_password.label(class="form-control-label") }}
-                    {{ form.confirm_password(class="form-control" + (' is-invalid' if form.confirm_password.errors else
-                    '') ) }}
-                    {% if form.confirm_password.errors %}
-                    <div class="invalid-feedback">
-                        {{ form.confirm_password.errors[0] }}
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-primary btn-block") }}
-                </div>
-                <div class="text-center">
-                    <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
-                </div>
-            </form>
+{% extends 'base.html' %} {% block title %} Register {% endblock title %} {%
+block content %}
+<!-- <div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <div class="alert alert-danger">{{ messages[0] }}</div>
+      {% endif %} {% endwith %}
+      <form method="POST" class="p-4 border rounded bg-light">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          {{ form.name.label(class="form-control-label") }} {{
+          form.name(class="form-control" + (' is-invalid' if form.name.errors
+          else '') ) }} {% for error in form.name.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
         </div>
+        <div class="form-group">
+          {{ form.email.label(class="form-control-label") }} {{
+          form.email(class="form-control" + (' is-invalid' if form.email.errors
+          else '') ) }} {% if form.email.errors %}
+          <div class="invalid-feedback">{{ form.email.errors[0] }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.password.label(class="form-control-label") }} {{
+          form.password(class="form-control" + (' is-invalid' if
+          form.password.errors else '') ) }} {% if form.password.errors %}
+          <div class="invalid-feedback">{{ form.password.errors[0] }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.confirm_password.label(class="form-control-label") }} {{
+          form.confirm_password(class="form-control" + (' is-invalid' if
+          form.confirm_password.errors else '') ) }} {% if
+          form.confirm_password.errors %}
+          <div class="invalid-feedback">
+            {{ form.confirm_password.errors[0] }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-primary btn-block") }}
+        </div>
+        <div class="text-center">
+          <p>
+            Already have an account?
+            <a href="{{ url_for('auth.login') }}">Login</a>
+          </p>
+        </div>
+      </form>
     </div>
+  </div>
+</div> -->
+
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950">
+  <div
+    class="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-sm shadow-md sm:px-6 md:px-8 lg:px-10"
+  >
+    <div
+      class="self-center text-xl font-medium text-gray-800 uppercase sm:text-2xl"
+    >
+      Register Your Account
+    </div>
+    <button
+      class="relative py-2 mt-6 text-sm text-gray-800 bg-gray-100 border rounded-md hover:bg-gray-200"
+    >
+      <span
+        class="absolute top-0 left-0 flex items-center justify-center w-10 h-full text-blue-500"
+        ><i class="fab fa-facebook-f"></i
+      ></span>
+      <span>Login with Facebook</span>
+    </button>
+    <div class="relative h-px mt-10 bg-gray-300">
+      <div class="absolute top-0 left-0 flex justify-center w-full -mt-2">
+        <span class="px-4 text-xs text-gray-500 uppercase bg-white"
+          >Or Register With Email</span
+        >
+      </div>
+    </div>
+    <div class="mt-10">
+      <form method="POST">
+        <div class="flex flex-col mb-6">
+          <label
+            for="email"
+            class="mb-1 text-xs tracking-wide text-gray-600 sm:text-sm"
+            >E-Mail Address:</label
+          >
+          <div class="relative">
+            <div
+              class="absolute top-0 left-0 inline-flex items-center justify-center w-10 h-full text-gray-400"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                />
+              </svg>
+            </div>
+
+            <input
+              id="email"
+              type="email"
+              name="email"
+              class="w-full py-2 pl-10 pr-4 text-sm placeholder-gray-500 border border-gray-400 rounded-lg sm:text-base focus:outline-none focus:border-blue-400"
+              placeholder="E-Mail Address"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col mb-6">
+          <label
+            for="password"
+            class="mb-1 text-xs tracking-wide text-gray-600 sm:text-sm"
+            >Password:</label
+          >
+          <div class="relative">
+            <div
+              class="absolute top-0 left-0 inline-flex items-center justify-center w-10 h-full text-gray-400"
+            >
+              <span>
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </span>
+            </div>
+
+            <input
+              id="password"
+              type="password"
+              name="password"
+              class="w-full py-2 pl-10 pr-4 text-sm placeholder-gray-500 border border-gray-400 rounded-lg sm:text-base focus:outline-none focus:border-blue-400"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center mb-6 -mt-4">
+          <div class="flex ml-auto">
+            <a
+              href="#"
+              class="inline-flex text-xs text-blue-500 sm:text-sm hover:text-blue-700"
+              >Forgot Your Password?</a
+            >
+          </div>
+        </div>
+
+        <div class="flex w-full">
+          <button
+            type="submit"
+            class="flex items-center justify-center w-full py-2 text-sm text-white transition duration-150 ease-in bg-blue-600 rounded focus:outline-none sm:text-base hover:bg-blue-700"
+          >
+            <span class="mr-2 uppercase">Register</span>
+            <span>
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="flex items-center justify-center mt-6">
+      <a
+        href="{{ url_for('auth.login') }}"
+        class="inline-flex items-center text-xs font-bold text-center text-blue-500 hover:text-blue-700"
+      >
+        <span>
+          <!-- <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            />
+          </svg> -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            class="w-5 h-5 text-blue-500"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="#1C274C"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M2.001 11.999h14m0 0-3.5-3m3.5 3-3.5 3"
+            />
+            <path
+              stroke="#1C274C"
+              stroke-linecap="round"
+              stroke-width="1.5"
+              d="M9.002 7c.012-2.175.109-3.353.877-4.121C10.758 2 12.172 2 15 2h1c2.829 0 4.243 0 5.122.879C22 3.757 22 5.172 22 8v8c0 2.828 0 4.243-.878 5.121C20.242 22 18.829 22 16 22h-1c-2.828 0-4.242 0-5.121-.879-.768-.768-.865-1.946-.877-4.121"
+            />
+          </svg>
+        </span>
+        <span class="ml-2">You have an account?</span>
+      </a>
+    </div>
+  </div>
 </div>
 {% endblock content %}
